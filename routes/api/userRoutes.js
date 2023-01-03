@@ -4,8 +4,8 @@ const {
   getSingleUser,
   createUser,
   deleteUser,
-  createFriend,
-  deleteFriend,
+  //createFriend,
+  //deleteFriend,
 } = require('../../controllers/userController');
 
 // /api/students

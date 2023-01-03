@@ -12,6 +12,14 @@ connection.once('open', async () => {
   const users = [];
   const thoughts = [];
 
+  const makeThought = (thoughtText) => {
+    thoughts.push({
+      thoughtText,
+      userName: [users[genRandomIndex(users)]._id],
+    });
+  };
+
+
   for (let i = 0; i < 20; i++) {
     const fullName = getRandomName();
     const userName = fullName;
@@ -23,15 +31,7 @@ connection.once('open', async () => {
       email,
       thoughts,
     });
-  }
-
-  const makeThought = (thoughtText) => {
-    thoughts.push({
-      thoughtText,
-      userName: [users[genRandomIndex(users)]._id],
-    });
   };
-
 
 
   await User.collection.insertMany(users);
