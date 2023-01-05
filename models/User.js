@@ -9,8 +9,7 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      //remember to change back to unique
-      unique: false,
+      unique: true,
       required: true,
     },
     thoughts: [
