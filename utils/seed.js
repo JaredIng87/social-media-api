@@ -23,7 +23,7 @@ connection.once('open', async () => {
   for (let i = 0; i < 20; i++) {
     const fullName = getRandomName();
     const userName = fullName;
-    const email = fullName.split(' ')[0];
+    const email = `${fullName}@email.com`;
 
     users.push({
       userName,
