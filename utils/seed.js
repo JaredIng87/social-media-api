@@ -1,6 +1,6 @@
 const connection = require('../config/connection');
 const { User, Thought } = require('../models');
-const { getRandomName, genRandomIndex, getRandomThought } = require('./data');
+const { getRandomName, genRandomIndex, getRandomText } = require('./data');
 
 connection.on('error', (err) => err);
 
@@ -12,7 +12,7 @@ connection.once('open', async () => {
   const users = [];
   const thoughts = [];
 
-  const makeThought = (thoughtText) => {
+  const makeText = (thoughtText) => {
     thoughts.push({
       thoughtText,
       userName: [users[genRandomIndex(users)]._id],
@@ -25,18 +25,16 @@ connection.once('open', async () => {
     const userName = fullName;
     const email = fullName.split(' ')[0];
 
-
     users.push({
       userName,
       email,
-      thoughts,
     });
   };
 
 
   await User.collection.insertMany(users);
 
-  users.forEach(() => makeThought(getRandomThought(50)));
+  users.forEach(() => makeText(getRandomText(50)));
 
   await Thought.collection.insertMany(thoughts);
 

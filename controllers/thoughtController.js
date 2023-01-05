@@ -1,23 +1,11 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-// Aggregate function to get the number of thoughts overall
-const thoughtCount = async () =>
-  Thought.aggregate()
-    .count('thoughtCount')
-    .then((numberOfThoughts) => numberOfThoughts);
-
 module.exports = {
   // Get all thought
   getThoughts(req, res) {
     Thought.find()
-      .then(async (thoughts) => {
-        const thoughtObj = {
-          thoughts,
-          thoughtCount: await thoughtCount(),
-        };
-        return res.json(thoughtObj);
-      })
+      .then((thoughts) => res.json(thoughts))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -45,6 +33,24 @@ module.exports = {
       .then((user) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
+
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  },
+
   // Delete a thought and remove it from the user
   deleteThought(req, res) {
     Thought.findOneAndRemove({ _id: req.params.thoughtId })

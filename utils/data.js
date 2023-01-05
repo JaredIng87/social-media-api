@@ -109,7 +109,7 @@ const lorum = [
 
     const getRandomWord = () => `${lorum[genRandomIndex(lorum)]}`;
     
-    const getRandomThought = (words) => {
+    const getRandomText = (words) => {
       let thought = '';
       for (let i = 0; i < words; i++) {
         thought += ` ${getRandomWord()}`;
@@ -118,4 +118,4 @@ const lorum = [
     };
   
   // Export the functions for use in seed.js
-  module.exports = { getRandomName, genRandomIndex, getRandomWord, getRandomThought  };
+  module.exports = { getRandomName, genRandomIndex, getRandomWord, getRandomText  };
