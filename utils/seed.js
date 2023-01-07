@@ -13,9 +13,11 @@ connection.once('open', async () => {
   const thoughts = [];
 
   const makeText = (thoughtText) => {
+    const userIndex = genRandomIndex(users);
     thoughts.push({
       thoughtText,
-      userName: [users[genRandomIndex(users)]._id],
+      userId: [users[userIndex]._id],
+      userName: users[userIndex].userName,
     });
   };
 
