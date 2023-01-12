@@ -67,36 +67,6 @@ const names = [
     'Nathaniel',
     'Parker',
   ];
-
-const lorum = [
-    'lorem',
-    'imsum',
-    'dolor',
-    'sit',
-    'amet',
-    'consectetur',
-    'adipiscing',
-    'elit',
-    'curabitur',
-    'vel',
-    'hendrerit',
-    'libero',
-    'eleifend',
-    'blandit',
-    'nunc',
-    'ornare',
-    'odio',
-    'ut',
-    'orci',
-    'gravida',
-    'imperdiet',
-    'nullam',
-    'purus',
-    'lacinia',
-    'a',
-    'pretium',
-    'quis',
-  ];
   
   // Get a random item given an array
   const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -105,17 +75,5 @@ const lorum = [
   const getRandomName = () =>
     `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
   
-    const genRandomIndex = (arr) => Math.floor(Math.random() * arr.length);
-
-    const getRandomWord = () => `${lorum[genRandomIndex(lorum)]}`;
-    
-    const getRandomText = (words) => {
-      let thought = '';
-      for (let i = 0; i < words; i++) {
-        thought += ` ${getRandomWord()}`;
-      }
-      return thought;
-    };
-  
   // Export the functions for use in seed.js
-  module.exports = { getRandomName, genRandomIndex, getRandomWord, getRandomText  };
+  module.exports = { getRandomName };

@@ -30,8 +30,24 @@ module.exports = {
   // create a new thought
   createThought(req, res) {
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
-      .catch((err) => res.status(500).json(err));
+      .then((thought) => {
+        return User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $addToSet: { thoughts: thought._id } },
+          { new: true }
+        );
+      })
+      .then((user, thought) =>
+        !user
+          ? res
+              .status(404)
+              .json({ message: 'Thought created, but found no user with that ID' })
+          : res.json('Thought created')
+      )
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
   },
 
   updateThought(req, res) {
@@ -58,9 +74,9 @@ module.exports = {
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
           : User.findOneAndUpdate(
-              { thoughts: req.params.thoughtId },
-              { $pull: { thoughts: req.params.thoughtId } },
-              { new: true }
+            { _id: req.body.userId },
+            { $addToSet: { thoughts: thought._id } },
+            { new: true }
             )
       )
       .then((user) =>
