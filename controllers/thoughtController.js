@@ -74,8 +74,8 @@ module.exports = {
         !thought
           ? res.status(404).json({ message: 'No thought with that ID' })
           : User.findOneAndUpdate(
-            { _id: req.body.userId },
-            { $addToSet: { thoughts: thought._id } },
+            { thoughts: req.params.thoughtId },
+              { $pull: { thoughts: req.params.thoughtId } },
             { new: true }
             )
       )
